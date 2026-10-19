@@ -169,3 +169,37 @@ addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onS
     scrollTo({top:0,behavior:calm?'auto':'smooth'});
   });
 })();
+
+// track clicks on contact links
+// visitor tracking: page view + clicks on contact links
+(function(){
+  const token=document.querySelector('meta[name=csrf-token]')?.content;
+  if(!token)return;
+  const post=body=>{
+    try{
+      fetch('/track',{method:'POST',keepalive:true,
+        headers:{'Content-Type':'application/json','Accept':'application/json','X-CSRF-TOKEN':token},
+        body:JSON.stringify(body)});
+    }catch(e){}
+  };
+
+  // page view (once per page load)
+  const q=new URLSearchParams(location.search);
+  post({
+    event:'pageview',
+    ref:document.referrer||'',
+    utm_source:q.get('utm_source')||'',
+    utm_medium:q.get('utm_medium')||'',
+    utm_campaign:q.get('utm_campaign')||''
+  });
+
+  // contact link clicks
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href]');if(!a)return;
+    const h=a.getAttribute('href')||'';
+    if(h.includes('wa.me'))post({event:'click_whatsapp'});
+    else if(h.includes('instagram.com'))post({event:'click_instagram'});
+    else if(h.includes('threads.com')||h.includes('threads.net'))post({event:'click_threads'});
+    else if(h.startsWith('mailto:'))post({event:'click_email'});
+  });
+})();
