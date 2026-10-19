@@ -345,7 +345,6 @@
             <h4>Get in touch</h4>
             <ul>
               <li><a href="https://wa.me/6281235422626" target="_blank" rel="noopener">Chat on WhatsApp</a></li>
-              <li><a href="https://wa.me/6281235422626" target="_blank" rel="noopener">0812-3542-2626</a></li>
               <li><a href="https://instagram.com/studi.path" target="_blank" rel="noopener">Instagram @studi.path</a></li>
               <li><a href="https://www.threads.com/@studi.path" target="_blank" rel="noopener">Threads @studi.path</a></li>
               <li><a href="mailto:admin@studipath.id">admin@studipath.id</a></li>
